@@ -1,0 +1,49 @@
+allowHostDirVolumePlugin: false
+allowHostIPC: false
+allowHostNetwork: false
+allowHostPID: false
+allowHostPorts: false
+allowPrivilegeEscalation: true
+allowPrivilegedContainer: false
+allowedCapabilities: null
+apiVersion: security.openshift.io/v1
+defaultAddCapabilities: null
+fsGroup:
+  type: RunAsAny
+groups:
+- system:authenticated
+- root
+- system
+kind: SecurityContextConstraints
+metadata:
+  annotations:
+    kubernetes.io/description: restricted denies access to all host features and requires
+      pods to be run with a UID, and SELinux context that are allocated to the namespace.  This
+      is the most restrictive SCC and it is used by default for authenticated users.
+  creationTimestamp: 2020-05-18T08:53:02Z
+  name: freqtrade
+  resourceVersion: "63"
+  selfLink: /apis/security.openshift.io/v1/securitycontextconstraints/restricted
+  uid: fb902565-98e4-11ea-838d-001c42aed741
+priority: null
+readOnlyRootFilesystem: false
+requiredDropCapabilities:
+- KILL
+- MKNOD
+- SETUID
+- SETGID
+runAsUser:
+  type: RunAsAny
+seLinuxContext:
+  type: RunAsAny
+supplementalGroups:
+  type: RunAsAny
+users: []
+volumes:
+- configMap
+- downwardAPI
+- emptyDir
+- persistentVolumeClaim
+- projected
+- secret
+- freqtrade-volume

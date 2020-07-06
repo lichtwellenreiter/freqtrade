@@ -23,6 +23,14 @@ RUN pip install numpy --no-cache-dir \
 # Install and execute
 COPY . /freqtrade/
 RUN pip install -e . --no-cache-dir
-ENTRYPOINT ["freqtrade"]
+
+ENV LOGFILE syslog
+ENV DBURL sqlite:////freqtrade/user_data/tradesv3.sqlite
+ENV CONFIG /freqtrade/user_data/config.json
+ENV STRATEGY Simple
+
+
+# ENTRYPOINT ["freqtrade"]
 # Default to trade mode
-CMD [ "trade" ]
+WORKDIR /freqtrade
+CMD freqtrade trade --logfile $LOGFILE --db-url $DBURL -c $CONFIG -s $STRATEGY

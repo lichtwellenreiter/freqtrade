@@ -1,0 +1,813 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      openshift.io/deployment-config.name: freqtrade-prod
+      openshift.io/deployment.name: freqtrade-prod-3
+      openshift.io/scc: restricted
+    creationTimestamp: 2020-05-24T11:04:20Z
+    labels:
+      openshift.io/deployer-pod-for.name: freqtrade-prod-3
+    name: freqtrade-prod-3-deploy
+    namespace: freqtrade
+    ownerReferences:
+    - apiVersion: v1
+      kind: ReplicationController
+      name: freqtrade-prod-3
+      uid: 515a00b3-9dae-11ea-838d-001c42aed741
+    resourceVersion: "1007467"
+    selfLink: /api/v1/namespaces/freqtrade/pods/freqtrade-prod-3-deploy
+    uid: 515f20d7-9dae-11ea-838d-001c42aed741
+  spec:
+    activeDeadlineSeconds: 21600
+    containers:
+    - env:
+      - name: OPENSHIFT_DEPLOYMENT_NAME
+        value: freqtrade-prod-3
+      - name: OPENSHIFT_DEPLOYMENT_NAMESPACE
+        value: freqtrade
+      image: docker.io/openshift/origin-deployer:v3.11.0
+      imagePullPolicy: IfNotPresent
+      name: deployment
+      resources: {}
+      securityContext:
+        capabilities:
+          drop:
+          - KILL
+          - MKNOD
+          - SETGID
+          - SETUID
+        runAsUser: 1000390000
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: deployer-token-g9n8b
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    imagePullSecrets:
+    - name: deployer-dockercfg-mw4vp
+    nodeName: 33339.hostserv.eu
+    nodeSelector:
+      node-role.kubernetes.io/compute: "true"
+    priority: 0
+    restartPolicy: Never
+    schedulerName: default-scheduler
+    securityContext:
+      fsGroup: 1000390000
+      seLinuxOptions:
+        level: s0:c20,c5
+    serviceAccount: deployer
+    serviceAccountName: deployer
+    terminationGracePeriodSeconds: 10
+    volumes:
+    - name: deployer-token-g9n8b
+      secret:
+        defaultMode: 420
+        secretName: deployer-token-g9n8b
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: 2020-05-24T11:04:20Z
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: 2020-05-24T11:04:28Z
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: null
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: 2020-05-24T11:04:20Z
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: docker://9d13b441dd19a96f2f17c8216cf81d30061d416f6562255b1aca84b4227c3a6f
+      image: docker.io/openshift/origin-deployer:v3.11.0
+      imageID: docker-pullable://docker.io/openshift/origin-deployer@sha256:97af15c22ccf7eec7a9f291def0f11b69c940eed4e9ea845c254ccf93716a6a2
+      lastState: {}
+      name: deployment
+      ready: true
+      restartCount: 0
+      state:
+        running:
+          startedAt: 2020-05-24T11:04:27Z
+    hostIP: 213.167.224.113
+    phase: Running
+    podIP: 10.128.0.140
+    qosClass: BestEffort
+    startTime: 2020-05-24T11:04:20Z
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      openshift.io/deployment-config.latest-version: "3"
+      openshift.io/deployment-config.name: freqtrade-prod
+      openshift.io/deployment.name: freqtrade-prod-3
+      openshift.io/scc: restricted
+    creationTimestamp: 2020-05-24T11:04:27Z
+    generateName: freqtrade-prod-3-
+    labels:
+      app: freqtrade-prod
+      deployment: freqtrade-prod-3
+      deploymentconfig: freqtrade-prod
+    name: freqtrade-prod-3-rxrjj
+    namespace: freqtrade
+    ownerReferences:
+    - apiVersion: v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicationController
+      name: freqtrade-prod-3
+      uid: 515a00b3-9dae-11ea-838d-001c42aed741
+    resourceVersion: "1007721"
+    selfLink: /api/v1/namespaces/freqtrade/pods/freqtrade-prod-3-rxrjj
+    uid: 55e956fc-9dae-11ea-838d-001c42aed741
+  spec:
+    containers:
+    - env:
+      - name: STAGE
+        value: prod
+      image: fthievent/freqtrade
+      imagePullPolicy: Always
+      name: freqtrade-prod
+      ports:
+      - containerPort: 3000
+        protocol: TCP
+      resources:
+        limits:
+          cpu: "4"
+          memory: 8Gi
+        requests:
+          cpu: "1"
+          memory: 2Gi
+      securityContext:
+        capabilities:
+          drop:
+          - KILL
+          - MKNOD
+          - SETGID
+          - SETUID
+        runAsUser: 1000390000
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /freqtrade/user_data
+        name: volume-utdok
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: default-token-85txq
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    imagePullSecrets:
+    - name: default-dockercfg-2wp7d
+    nodeName: 33339.hostserv.eu
+    nodeSelector:
+      node-role.kubernetes.io/compute: "true"
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext:
+      fsGroup: 1000390000
+      seLinuxOptions:
+        level: s0:c20,c5
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoSchedule
+      key: node.kubernetes.io/memory-pressure
+      operator: Exists
+    volumes:
+    - name: volume-utdok
+      persistentVolumeClaim:
+        claimName: freqtrade-data
+    - name: default-token-85txq
+      secret:
+        defaultMode: 420
+        secretName: default-token-85txq
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: 2020-05-24T11:04:27Z
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: 2020-05-24T11:04:27Z
+      message: 'containers with unready status: [freqtrade-prod]'
+      reason: ContainersNotReady
+      status: "False"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: null
+      message: 'containers with unready status: [freqtrade-prod]'
+      reason: ContainersNotReady
+      status: "False"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: 2020-05-24T11:04:27Z
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: docker://0c1077d41fea65675875c884a80f1810f19cc4a7015f1b0cd77d110c4ad7ad45
+      image: docker.io/fthievent/freqtrade:latest
+      imageID: docker-pullable://docker.io/fthievent/freqtrade@sha256:9c62291f195ad5b32a909074c70339b18527e17f3ddfe593fd09b9de24c28c78
+      lastState:
+        terminated:
+          containerID: docker://0c1077d41fea65675875c884a80f1810f19cc4a7015f1b0cd77d110c4ad7ad45
+          exitCode: 126
+          finishedAt: 2020-05-24T11:06:13Z
+          reason: Error
+          startedAt: 2020-05-24T11:06:13Z
+      name: freqtrade-prod
+      ready: false
+      restartCount: 4
+      state:
+        waiting:
+          message: Back-off 1m20s restarting failed container=freqtrade-prod pod=freqtrade-prod-3-rxrjj_freqtrade(55e956fc-9dae-11ea-838d-001c42aed741)
+          reason: CrashLoopBackOff
+    hostIP: 213.167.224.113
+    phase: Running
+    podIP: 10.128.0.141
+    qosClass: Burstable
+    startTime: 2020-05-24T11:04:27Z
+- apiVersion: v1
+  kind: ReplicationController
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/desired-replicas: "1"
+      openshift.io/deployer-pod.completed-at: 2020-05-24 13:03:14 +0200 CEST
+      openshift.io/deployer-pod.created-at: 2020-05-24 13:03:08 +0200 CEST
+      openshift.io/deployer-pod.name: freqtrade-prod-1-deploy
+      openshift.io/deployment-config.latest-version: "1"
+      openshift.io/deployment-config.name: freqtrade-prod
+      openshift.io/deployment.cancelled: "true"
+      openshift.io/deployment.phase: Failed
+      openshift.io/deployment.replicas: "0"
+      openshift.io/deployment.status-reason: The deployment was cancelled by the user
+      openshift.io/encoded-deployment-config: |
+        {"kind":"DeploymentConfig","apiVersion":"apps.openshift.io/v1","metadata":{"name":"freqtrade-prod","namespace":"freqtrade","selfLink":"/apis/apps.openshift.io/v1/namespaces/freqtrade/deploymentconfigs/freqtrade-prod","uid":"26bb4628-9dae-11ea-838d-001c42aed741","resourceVersion":"1007241","generation":1,"creationTimestamp":"2020-05-24T11:03:08Z","labels":{"app":"freqtrade","stage":"prod","version":"1.0"}},"spec":{"strategy":{"type":"Rolling","rollingParams":{"updatePeriodSeconds":1,"intervalSeconds":20,"timeoutSeconds":600,"maxUnavailable":"0%","maxSurge":"25%"},"resources":{},"activeDeadlineSeconds":21600},"triggers":[{"type":"ConfigChange"}],"replicas":1,"revisionHistoryLimit":10,"test":false,"selector":{"app":"freqtrade-prod","deploymentconfig":"freqtrade-prod"},"template":{"metadata":{"creationTimestamp":null,"labels":{"app":"freqtrade-prod","deploymentconfig":"freqtrade-prod"}},"spec":{"containers":[{"name":"freqtrade-prod","image":"fthievent/freqtrade","ports":[{"containerPort":3000,"protocol":"TCP"}],"env":[{"name":"STAGE","value":"prod"}],"resources":{"limits":{"cpu":"4","memory":"8Gi"},"requests":{"cpu":"1","memory":"2Gi"}},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File","imagePullPolicy":"Always"}],"restartPolicy":"Always","terminationGracePeriodSeconds":30,"dnsPolicy":"ClusterFirst","securityContext":{},"schedulerName":"default-scheduler"}}},"status":{"latestVersion":1,"observedGeneration":0,"replicas":0,"updatedReplicas":0,"availableReplicas":0,"unavailableReplicas":0,"details":{"message":"config change","causes":[{"type":"ConfigChange"}]}}}
+    creationTimestamp: 2020-05-24T11:03:08Z
+    generation: 3
+    labels:
+      app: freqtrade
+      openshift.io/deployment-config.name: freqtrade-prod
+      stage: prod
+      version: "1.0"
+    name: freqtrade-prod-1
+    namespace: freqtrade
+    ownerReferences:
+    - apiVersion: apps.openshift.io/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: DeploymentConfig
+      name: freqtrade-prod
+      uid: 26bb4628-9dae-11ea-838d-001c42aed741
+    resourceVersion: "1007294"
+    selfLink: /api/v1/namespaces/freqtrade/replicationcontrollers/freqtrade-prod-1
+    uid: 26bde8a0-9dae-11ea-838d-001c42aed741
+  spec:
+    replicas: 0
+    selector:
+      app: freqtrade-prod
+      deployment: freqtrade-prod-1
+      deploymentconfig: freqtrade-prod
+    template:
+      metadata:
+        annotations:
+          openshift.io/deployment-config.latest-version: "1"
+          openshift.io/deployment-config.name: freqtrade-prod
+          openshift.io/deployment.name: freqtrade-prod-1
+        creationTimestamp: null
+        labels:
+          app: freqtrade-prod
+          deployment: freqtrade-prod-1
+          deploymentconfig: freqtrade-prod
+      spec:
+        containers:
+        - env:
+          - name: STAGE
+            value: prod
+          image: fthievent/freqtrade
+          imagePullPolicy: Always
+          name: freqtrade-prod
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: "4"
+              memory: 8Gi
+            requests:
+              cpu: "1"
+              memory: 2Gi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 3
+    replicas: 0
+- apiVersion: v1
+  kind: ReplicationController
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/desired-replicas: "1"
+      openshift.io/deployer-pod.created-at: 2020-05-24 13:03:41 +0200 CEST
+      openshift.io/deployer-pod.name: freqtrade-prod-2-deploy
+      openshift.io/deployment-config.latest-version: "2"
+      openshift.io/deployment-config.name: freqtrade-prod
+      openshift.io/deployment.cancelled: "true"
+      openshift.io/deployment.phase: Failed
+      openshift.io/deployment.replicas: "0"
+      openshift.io/deployment.status-reason: newer deployment was found running
+      openshift.io/encoded-deployment-config: |
+        {"kind":"DeploymentConfig","apiVersion":"apps.openshift.io/v1","metadata":{"name":"freqtrade-prod","namespace":"freqtrade","selfLink":"/apis/apps.openshift.io/v1/namespaces/freqtrade/deploymentconfigs/freqtrade-prod","uid":"26bb4628-9dae-11ea-838d-001c42aed741","resourceVersion":"1007340","generation":2,"creationTimestamp":"2020-05-24T11:03:08Z","labels":{"app":"freqtrade","stage":"prod","version":"1.0"}},"spec":{"strategy":{"type":"Rolling","rollingParams":{"updatePeriodSeconds":1,"intervalSeconds":20,"timeoutSeconds":600,"maxUnavailable":"0%","maxSurge":"25%"},"resources":{},"activeDeadlineSeconds":21600},"triggers":[{"type":"ConfigChange"}],"replicas":1,"revisionHistoryLimit":10,"test":false,"selector":{"app":"freqtrade-prod","deploymentconfig":"freqtrade-prod"},"template":{"metadata":{"creationTimestamp":null,"labels":{"app":"freqtrade-prod","deploymentconfig":"freqtrade-prod"}},"spec":{"volumes":[{"name":"volume-utdok","persistentVolumeClaim":{"claimName":"freqtrade-data"}}],"containers":[{"name":"freqtrade-prod","image":"fthievent/freqtrade","ports":[{"containerPort":3000,"protocol":"TCP"}],"env":[{"name":"STAGE","value":"prod"}],"resources":{"limits":{"cpu":"4","memory":"8Gi"},"requests":{"cpu":"1","memory":"2Gi"}},"volumeMounts":[{"name":"volume-utdok","mountPath":"/freqtrade/user_data"}],"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File","imagePullPolicy":"Always"}],"restartPolicy":"Always","terminationGracePeriodSeconds":30,"dnsPolicy":"ClusterFirst","securityContext":{},"schedulerName":"default-scheduler"}}},"status":{"latestVersion":2,"observedGeneration":1,"replicas":0,"updatedReplicas":0,"availableReplicas":0,"unavailableReplicas":0,"details":{"message":"config change","causes":[{"type":"ConfigChange"}]},"conditions":[{"type":"Available","status":"False","lastUpdateTime":"2020-05-24T11:03:08Z","lastTransitionTime":"2020-05-24T11:03:08Z","message":"Deployment config does not have minimum availability."},{"type":"Progressing","status":"False","lastUpdateTime":"2020-05-24T11:03:15Z","lastTransitionTime":"2020-05-24T11:03:15Z","reason":"RolloutCancelled","message":"rollout of replication controller \"freqtrade-prod-1\" was cancelled"}]}}
+    creationTimestamp: 2020-05-24T11:03:41Z
+    generation: 1
+    labels:
+      app: freqtrade
+      openshift.io/deployment-config.name: freqtrade-prod
+      stage: prod
+      version: "1.0"
+    name: freqtrade-prod-2
+    namespace: freqtrade
+    ownerReferences:
+    - apiVersion: apps.openshift.io/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: DeploymentConfig
+      name: freqtrade-prod
+      uid: 26bb4628-9dae-11ea-838d-001c42aed741
+    resourceVersion: "1007427"
+    selfLink: /api/v1/namespaces/freqtrade/replicationcontrollers/freqtrade-prod-2
+    uid: 3a6a3567-9dae-11ea-838d-001c42aed741
+  spec:
+    replicas: 0
+    selector:
+      app: freqtrade-prod
+      deployment: freqtrade-prod-2
+      deploymentconfig: freqtrade-prod
+    template:
+      metadata:
+        annotations:
+          openshift.io/deployment-config.latest-version: "2"
+          openshift.io/deployment-config.name: freqtrade-prod
+          openshift.io/deployment.name: freqtrade-prod-2
+        creationTimestamp: null
+        labels:
+          app: freqtrade-prod
+          deployment: freqtrade-prod-2
+          deploymentconfig: freqtrade-prod
+      spec:
+        containers:
+        - env:
+          - name: STAGE
+            value: prod
+          image: fthievent/freqtrade
+          imagePullPolicy: Always
+          name: freqtrade-prod
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: "4"
+              memory: 8Gi
+            requests:
+              cpu: "1"
+              memory: 2Gi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /freqtrade/user_data
+            name: volume-utdok
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: volume-utdok
+          persistentVolumeClaim:
+            claimName: freqtrade-data
+  status:
+    observedGeneration: 1
+    replicas: 0
+- apiVersion: v1
+  kind: ReplicationController
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/desired-replicas: "1"
+      openshift.io/deployer-pod.created-at: 2020-05-24 13:04:20 +0200 CEST
+      openshift.io/deployer-pod.name: freqtrade-prod-3-deploy
+      openshift.io/deployment-config.latest-version: "3"
+      openshift.io/deployment-config.name: freqtrade-prod
+      openshift.io/deployment.phase: Running
+      openshift.io/deployment.replicas: "0"
+      openshift.io/deployment.status-reason: manual change
+      openshift.io/encoded-deployment-config: |
+        {"kind":"DeploymentConfig","apiVersion":"apps.openshift.io/v1","metadata":{"name":"freqtrade-prod","namespace":"freqtrade","selfLink":"/apis/apps.openshift.io/v1/namespaces/freqtrade/deploymentconfigs/freqtrade-prod","uid":"26bb4628-9dae-11ea-838d-001c42aed741","resourceVersion":"1007367","generation":3,"creationTimestamp":"2020-05-24T11:03:08Z","labels":{"app":"freqtrade","stage":"prod","version":"1.0"}},"spec":{"strategy":{"type":"Rolling","rollingParams":{"updatePeriodSeconds":1,"intervalSeconds":20,"timeoutSeconds":600,"maxUnavailable":"0%","maxSurge":"25%"},"resources":{},"activeDeadlineSeconds":21600},"triggers":[{"type":"ConfigChange"}],"replicas":1,"revisionHistoryLimit":10,"test":false,"selector":{"app":"freqtrade-prod","deploymentconfig":"freqtrade-prod"},"template":{"metadata":{"creationTimestamp":null,"labels":{"app":"freqtrade-prod","deploymentconfig":"freqtrade-prod"}},"spec":{"volumes":[{"name":"volume-utdok","persistentVolumeClaim":{"claimName":"freqtrade-data"}}],"containers":[{"name":"freqtrade-prod","image":"fthievent/freqtrade","ports":[{"containerPort":3000,"protocol":"TCP"}],"env":[{"name":"STAGE","value":"prod"}],"resources":{"limits":{"cpu":"4","memory":"8Gi"},"requests":{"cpu":"1","memory":"2Gi"}},"volumeMounts":[{"name":"volume-utdok","mountPath":"/freqtrade/user_data"}],"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File","imagePullPolicy":"Always"}],"restartPolicy":"Always","terminationGracePeriodSeconds":30,"dnsPolicy":"ClusterFirst","securityContext":{},"schedulerName":"default-scheduler"}}},"status":{"latestVersion":3,"observedGeneration":2,"replicas":0,"updatedReplicas":0,"availableReplicas":0,"unavailableReplicas":0,"details":{"message":"manual change","causes":[{"type":"Manual"}]},"conditions":[{"type":"Available","status":"False","lastUpdateTime":"2020-05-24T11:03:08Z","lastTransitionTime":"2020-05-24T11:03:08Z","message":"Deployment config does not have minimum availability."},{"type":"Progressing","status":"Unknown","lastUpdateTime":"2020-05-24T11:03:41Z","lastTransitionTime":"2020-05-24T11:03:41Z","message":"replication controller \"freqtrade-prod-2\" is waiting for pod \"freqtrade-prod-2-deploy\" to run"}]}}
+    creationTimestamp: 2020-05-24T11:04:20Z
+    generation: 2
+    labels:
+      app: freqtrade
+      openshift.io/deployment-config.name: freqtrade-prod
+      stage: prod
+      version: "1.0"
+    name: freqtrade-prod-3
+    namespace: freqtrade
+    ownerReferences:
+    - apiVersion: apps.openshift.io/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: DeploymentConfig
+      name: freqtrade-prod
+      uid: 26bb4628-9dae-11ea-838d-001c42aed741
+    resourceVersion: "1007468"
+    selfLink: /api/v1/namespaces/freqtrade/replicationcontrollers/freqtrade-prod-3
+    uid: 515a00b3-9dae-11ea-838d-001c42aed741
+  spec:
+    replicas: 1
+    selector:
+      app: freqtrade-prod
+      deployment: freqtrade-prod-3
+      deploymentconfig: freqtrade-prod
+    template:
+      metadata:
+        annotations:
+          openshift.io/deployment-config.latest-version: "3"
+          openshift.io/deployment-config.name: freqtrade-prod
+          openshift.io/deployment.name: freqtrade-prod-3
+        creationTimestamp: null
+        labels:
+          app: freqtrade-prod
+          deployment: freqtrade-prod-3
+          deploymentconfig: freqtrade-prod
+      spec:
+        containers:
+        - env:
+          - name: STAGE
+            value: prod
+          image: fthievent/freqtrade
+          imagePullPolicy: Always
+          name: freqtrade-prod
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: "4"
+              memory: 8Gi
+            requests:
+              cpu: "1"
+              memory: 2Gi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /freqtrade/user_data
+            name: volume-utdok
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: volume-utdok
+          persistentVolumeClaim:
+            claimName: freqtrade-data
+  status:
+    fullyLabeledReplicas: 1
+    observedGeneration: 2
+    replicas: 1
+- apiVersion: v1
+  kind: ReplicationController
+  metadata:
+    annotations:
+      openshift.io/deployer-pod.completed-at: 2020-05-18 17:08:14 +0200 CEST
+      openshift.io/deployer-pod.created-at: 2020-05-18 17:08:07 +0200 CEST
+      openshift.io/deployer-pod.name: freqtrade-test-1-deploy
+      openshift.io/deployment-config.latest-version: "1"
+      openshift.io/deployment-config.name: freqtrade-test
+      openshift.io/deployment.phase: Complete
+      openshift.io/deployment.replicas: "1"
+      openshift.io/deployment.status-reason: config change
+      openshift.io/encoded-deployment-config: |
+        {"kind":"DeploymentConfig","apiVersion":"apps.openshift.io/v1","metadata":{"name":"freqtrade-test","namespace":"freqtrade","selfLink":"/apis/apps.openshift.io/v1/namespaces/freqtrade/deploymentconfigs/freqtrade-test","uid":"607f0acb-9919-11ea-838d-001c42aed741","resourceVersion":"49130","generation":2,"creationTimestamp":"2020-05-18T15:08:06Z","labels":{"app":"freqtrade-test"},"annotations":{"openshift.io/generated-by":"OpenShiftWebConsole"}},"spec":{"strategy":{"type":"Rolling","rollingParams":{"updatePeriodSeconds":1,"intervalSeconds":1,"timeoutSeconds":600,"maxUnavailable":"25%","maxSurge":"25%"},"resources":{},"activeDeadlineSeconds":21600},"triggers":[{"type":"ConfigChange"},{"type":"ImageChange","imageChangeParams":{"automatic":true,"containerNames":["freqtrade-test"],"from":{"kind":"ImageStreamTag","namespace":"freqtrade","name":"freqtrade-test:latest"},"lastTriggeredImage":"freqtradeorg/freqtrade@sha256:74e9b39267d3530e7b6c6f2037dc197957412a0e5b3e163cb972b58c58e35c02"}}],"replicas":1,"test":false,"selector":{"app":"freqtrade-test","deploymentconfig":"freqtrade-test"},"template":{"metadata":{"creationTimestamp":null,"labels":{"app":"freqtrade-test","deploymentconfig":"freqtrade-test"},"annotations":{"openshift.io/generated-by":"OpenShiftWebConsole"}},"spec":{"containers":[{"name":"freqtrade-test","image":"freqtradeorg/freqtrade@sha256:74e9b39267d3530e7b6c6f2037dc197957412a0e5b3e163cb972b58c58e35c02","resources":{},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File","imagePullPolicy":"Always"}],"restartPolicy":"Always","terminationGracePeriodSeconds":30,"dnsPolicy":"ClusterFirst","securityContext":{},"schedulerName":"default-scheduler"}}},"status":{"latestVersion":1,"observedGeneration":1,"replicas":0,"updatedReplicas":0,"availableReplicas":0,"unavailableReplicas":0,"details":{"message":"config change","causes":[{"type":"ConfigChange"}]},"conditions":[{"type":"Available","status":"False","lastUpdateTime":"2020-05-18T15:08:06Z","lastTransitionTime":"2020-05-18T15:08:06Z","message":"Deployment config does not have minimum availability."}]}}
+    creationTimestamp: 2020-05-18T15:08:06Z
+    generation: 3
+    labels:
+      app: freqtrade-test
+      openshift.io/deployment-config.name: freqtrade-test
+    name: freqtrade-test-1
+    namespace: freqtrade
+    ownerReferences:
+    - apiVersion: apps.openshift.io/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: DeploymentConfig
+      name: freqtrade-test
+      uid: 607f0acb-9919-11ea-838d-001c42aed741
+    resourceVersion: "50625"
+    selfLink: /api/v1/namespaces/freqtrade/replicationcontrollers/freqtrade-test-1
+    uid: 610f4e12-9919-11ea-838d-001c42aed741
+  spec:
+    replicas: 0
+    selector:
+      app: freqtrade-test
+      deployment: freqtrade-test-1
+      deploymentconfig: freqtrade-test
+    template:
+      metadata:
+        annotations:
+          openshift.io/deployment-config.latest-version: "1"
+          openshift.io/deployment-config.name: freqtrade-test
+          openshift.io/deployment.name: freqtrade-test-1
+          openshift.io/generated-by: OpenShiftWebConsole
+        creationTimestamp: null
+        labels:
+          app: freqtrade-test
+          deployment: freqtrade-test-1
+          deploymentconfig: freqtrade-test
+      spec:
+        containers:
+        - image: freqtradeorg/freqtrade@sha256:74e9b39267d3530e7b6c6f2037dc197957412a0e5b3e163cb972b58c58e35c02
+          imagePullPolicy: Always
+          name: freqtrade-test
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 3
+    replicas: 0
+- apiVersion: apps.openshift.io/v1
+  kind: DeploymentConfig
+  metadata:
+    creationTimestamp: 2020-05-24T11:03:08Z
+    generation: 3
+    labels:
+      app: freqtrade
+      stage: prod
+      version: "1.0"
+    name: freqtrade-prod
+    namespace: freqtrade
+    resourceVersion: "1007465"
+    selfLink: /apis/apps.openshift.io/v1/namespaces/freqtrade/deploymentconfigs/freqtrade-prod
+    uid: 26bb4628-9dae-11ea-838d-001c42aed741
+  spec:
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      app: freqtrade-prod
+      deploymentconfig: freqtrade-prod
+    strategy:
+      activeDeadlineSeconds: 21600
+      resources: {}
+      rollingParams:
+        intervalSeconds: 20
+        maxSurge: 25%
+        maxUnavailable: 0%
+        timeoutSeconds: 600
+        updatePeriodSeconds: 1
+      type: Rolling
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: freqtrade-prod
+          deploymentconfig: freqtrade-prod
+      spec:
+        containers:
+        - env:
+          - name: STAGE
+            value: prod
+          image: fthievent/freqtrade
+          imagePullPolicy: Always
+          name: freqtrade-prod
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: "4"
+              memory: 8Gi
+            requests:
+              cpu: "1"
+              memory: 2Gi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /freqtrade/user_data
+            name: volume-utdok
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: volume-utdok
+          persistentVolumeClaim:
+            claimName: freqtrade-data
+    test: false
+    triggers:
+    - type: ConfigChange
+  status:
+    availableReplicas: 0
+    conditions:
+    - lastTransitionTime: 2020-05-24T11:03:08Z
+      lastUpdateTime: 2020-05-24T11:03:08Z
+      message: Deployment config does not have minimum availability.
+      status: "False"
+      type: Available
+    - lastTransitionTime: 2020-05-24T11:04:20Z
+      lastUpdateTime: 2020-05-24T11:04:20Z
+      message: replication controller "freqtrade-prod-3" is waiting for pod "freqtrade-prod-3-deploy"
+        to run
+      status: Unknown
+      type: Progressing
+    details:
+      causes:
+      - type: Manual
+      message: manual change
+    latestVersion: 3
+    observedGeneration: 3
+    replicas: 1
+    unavailableReplicas: 1
+    updatedReplicas: 1
+- apiVersion: apps.openshift.io/v1
+  kind: DeploymentConfig
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftWebConsole
+    creationTimestamp: 2020-05-18T15:08:06Z
+    generation: 3
+    labels:
+      app: freqtrade-test
+    name: freqtrade-test
+    namespace: freqtrade
+    resourceVersion: "50626"
+    selfLink: /apis/apps.openshift.io/v1/namespaces/freqtrade/deploymentconfigs/freqtrade-test
+    uid: 607f0acb-9919-11ea-838d-001c42aed741
+  spec:
+    replicas: 0
+    selector:
+      app: freqtrade-test
+      deploymentconfig: freqtrade-test
+    strategy:
+      activeDeadlineSeconds: 21600
+      resources: {}
+      rollingParams:
+        intervalSeconds: 1
+        maxSurge: 25%
+        maxUnavailable: 25%
+        timeoutSeconds: 600
+        updatePeriodSeconds: 1
+      type: Rolling
+    template:
+      metadata:
+        annotations:
+          openshift.io/generated-by: OpenShiftWebConsole
+        creationTimestamp: null
+        labels:
+          app: freqtrade-test
+          deploymentconfig: freqtrade-test
+      spec:
+        containers:
+        - image: freqtradeorg/freqtrade@sha256:74e9b39267d3530e7b6c6f2037dc197957412a0e5b3e163cb972b58c58e35c02
+          imagePullPolicy: Always
+          name: freqtrade-test
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+    test: false
+    triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - freqtrade-test
+        from:
+          kind: ImageStreamTag
+          name: freqtrade-test:latest
+          namespace: freqtrade
+        lastTriggeredImage: freqtradeorg/freqtrade@sha256:74e9b39267d3530e7b6c6f2037dc197957412a0e5b3e163cb972b58c58e35c02
+      type: ImageChange
+  status:
+    availableReplicas: 0
+    conditions:
+    - lastTransitionTime: 2020-05-18T15:08:15Z
+      lastUpdateTime: 2020-05-18T15:08:15Z
+      message: replication controller "freqtrade-test-1" successfully rolled out
+      reason: NewReplicationControllerAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: 2020-05-18T15:14:15Z
+      lastUpdateTime: 2020-05-18T15:14:15Z
+      message: Deployment config does not have minimum availability.
+      status: "False"
+      type: Available
+    details:
+      causes:
+      - type: ConfigChange
+      message: config change
+    latestVersion: 1
+    observedGeneration: 3
+    replicas: 0
+    unavailableReplicas: 0
+    updatedReplicas: 0
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+  metadata:
+    annotations:
+      openshift.io/image.dockerRepositoryCheck: 2020-05-18T14:26:37Z
+    creationTimestamp: 2020-05-18T14:26:36Z
+    generation: 2
+    labels:
+      app: freqtrade
+    name: freqtrade
+    namespace: freqtrade
+    resourceVersion: "43701"
+    selfLink: /apis/image.openshift.io/v1/namespaces/freqtrade/imagestreams/freqtrade
+    uid: 949fb226-9913-11ea-838d-001c42aed741
+  spec:
+    lookupPolicy:
+      local: false
+    tags:
+    - annotations:
+        openshift.io/generated-by: OpenShiftWebConsole
+        openshift.io/imported-from: freqtradeorg/freqtrade
+      from:
+        kind: DockerImage
+        name: freqtradeorg/freqtrade
+      generation: 2
+      importPolicy: {}
+      name: latest
+      referencePolicy:
+        type: Source
+  status:
+    dockerImageRepository: docker-registry.default.svc:5000/freqtrade/freqtrade
+    tags:
+    - items:
+      - created: 2020-05-18T14:26:37Z
+        dockerImageReference: freqtradeorg/freqtrade@sha256:74e9b39267d3530e7b6c6f2037dc197957412a0e5b3e163cb972b58c58e35c02
+        generation: 2
+        image: sha256:74e9b39267d3530e7b6c6f2037dc197957412a0e5b3e163cb972b58c58e35c02
+      tag: latest
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+  metadata:
+    annotations:
+      openshift.io/image.dockerRepositoryCheck: 2020-05-18T15:08:06Z
+    creationTimestamp: 2020-05-18T15:08:06Z
+    generation: 2
+    labels:
+      app: freqtrade-test
+    name: freqtrade-test
+    namespace: freqtrade
+    resourceVersion: "49128"
+    selfLink: /apis/image.openshift.io/v1/namespaces/freqtrade/imagestreams/freqtrade-test
+    uid: 607ecbe4-9919-11ea-838d-001c42aed741
+  spec:
+    lookupPolicy:
+      local: false
+    tags:
+    - annotations:
+        openshift.io/generated-by: OpenShiftWebConsole
+        openshift.io/imported-from: freqtradeorg/freqtrade
+      from:
+        kind: DockerImage
+        name: freqtradeorg/freqtrade
+      generation: 2
+      importPolicy: {}
+      name: latest
+      referencePolicy:
+        type: Source
+  status:
+    dockerImageRepository: docker-registry.default.svc:5000/freqtrade/freqtrade-test
+    tags:
+    - items:
+      - created: 2020-05-18T15:08:06Z
+        dockerImageReference: freqtradeorg/freqtrade@sha256:74e9b39267d3530e7b6c6f2037dc197957412a0e5b3e163cb972b58c58e35c02
+        generation: 2
+        image: sha256:74e9b39267d3530e7b6c6f2037dc197957412a0e5b3e163cb972b58c58e35c02
+      tag: latest
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""
